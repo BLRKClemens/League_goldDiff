@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { socket } from "./shared/socket";
 import { useSetupSocket } from "./shared/hooks/useSetupSocket";
+import LeaderBoard from "./shared/LeaderBoard";
 function App() {
   const [state, setState] = useState({});
 
@@ -9,13 +10,14 @@ function App() {
     socket.on("updateState", (newState) => {
       setState(newState);
     });
+
+    return () => socket.off("updateState");
   }, []);
 
   return (
-    <>
-      <h1>{state?.name}</h1>
-      <h1>counter {state?.counter}</h1>
-    </>
+    <div>
+      <LeaderBoard leaderBoard={state?.leaderBoard}></LeaderBoard>
+    </div>
   );
 }
 
