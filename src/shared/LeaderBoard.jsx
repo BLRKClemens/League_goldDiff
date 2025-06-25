@@ -9,13 +9,13 @@ const LeaderBoard = ({ leaderBoard }) => {
         <tr>
           <th>place</th>
           {Object.keys(leaderBoard[0]).map((key) => (
-            <th>{key}</th>
+            <th key={key}>{key}</th>
           ))}
         </tr>
       </thead>
       <tbody>
         {leaderBoard.map((entry, i) => (
-          <Row row={entry} place={i + 1}></Row>
+          <Row key={i} row={entry} place={i + 1}></Row>
         ))}
       </tbody>
     </table>
@@ -23,12 +23,11 @@ const LeaderBoard = ({ leaderBoard }) => {
 };
 
 const Row = ({ row, place }) => {
-  console.log(Object.entries(row)[1]);
   return (
     <tr>
       <td>{place}</td>
-      {Object.values(row).map((value) => (
-        <td>{value}</td>
+      {Object.entries(row).map(([key, value]) => (
+        <td key={key}>{value}</td>
       ))}
     </tr>
   );

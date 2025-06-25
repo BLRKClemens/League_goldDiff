@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "nodemon server"
+    "server": "nodemon server --ignore logs/*"
   },
   "dependencies": {
     "@faker-js/faker": "^9.8.0",
