@@ -110,7 +110,7 @@ io.on("connection", (socket) => {
   });
 });
 const client = new tmi.Client({
-  channels: ["clemens_blrk_test"],
+  channels: ["clemens_blrk_test", "tolkin", "karni", "nnoprime", "noway4u_sir"],
 });
 
 client.connect();
