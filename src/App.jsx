@@ -16,7 +16,11 @@ function App() {
 
   return (
     <div>
-      <LeaderBoard leaderBoard={state?.leaderBoard}></LeaderBoard>
+      {state?.polling ? (
+        <h1>Polling...</h1>
+      ) : (
+        <LeaderBoard leaderBoard={state?.leaderBoard}></LeaderBoard>
+      )}
     </div>
   );
 }

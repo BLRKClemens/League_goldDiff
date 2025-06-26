@@ -21,7 +21,7 @@ const io = new Server(server, {
 
 // Statischer Ordner für HTML-Dateien
 app.use(express.static(join(__dirname, "dist")));
-const startTime = 3;
+const startTime = 30;
 const team = {
   rot: "rot",
   blau: "blau",
