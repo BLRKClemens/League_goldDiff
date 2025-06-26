@@ -141,17 +141,13 @@ function onTwitchMessage(channel, name, message) {
   const leadingTeam = match[1].toLowerCase();
   const goldDiff = parseInt(match[2].toLowerCase());
 
-  if (leadingTeam != team.rot && leadingTeam != team.blau) return;
+  if (leadingTeam != state.leadingTeam) return;
 
-  const diffToGoal =
-    leadingTeam === state.leadingTeam
-      ? Math.abs(state.goldDiffGoal - goldDiff)
-      : state.goldDiffGoal + goldDiff;
+  const diffToGoal = Math.abs(state.goldDiffGoal - goldDiff);
 
   state.leaderBoard.push({
     channel,
     name,
-    leadingTeam,
     goldDiff,
     diffToGoal,
   });
