@@ -130,7 +130,7 @@ function sendRandomTestCommands() {
 }
 
 //sendTestCommands();
-sendRandomTestCommands();
+//sendRandomTestCommands();
 
 function onTwitchMessage(channel, name, message) {
   if (!state?.polling) return;
