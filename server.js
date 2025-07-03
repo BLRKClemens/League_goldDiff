@@ -21,7 +21,7 @@ const io = new Server(server, {
 
 // Statischer Ordner für HTML-Dateien
 app.use(express.static(join(__dirname, "dist")));
-const startTime = 30;
+const startTime = 60;
 const team = {
   rot: "rot",
   blau: "blau",
@@ -53,7 +53,7 @@ async function writeToFile(leaderBoard) {
   console.log("folderName", folderName);
   const folderPath = join(logsFolderPath, folderName);
 
-  const fileName = `${now.getHours()}-${pad(now.getMinutes())}-${pad(
+  const fileName = `${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(
     now.getSeconds()
   )}.json`;
   console.log("fileName", fileName);
@@ -153,7 +153,7 @@ function onTwitchMessage(channel, name, message) {
   });
 
   state.leaderBoard.sort((a, b) => a.diffToGoal - b.diffToGoal);
-  state.leaderBoard = state.leaderBoard.slice(0, 5);
+  state.leaderBoard = state.leaderBoard.slice(0, 3);
 
   alreadyVoted.push(name);
   io.sockets.emit("updateState", state);
