@@ -25,22 +25,29 @@ app.use(express.static(join(__dirname, "dist")));
 const startTime = 60;
 
 let alreadyVoted = [];
+let state;
+let timerId;
 
-let state = {
-  leadingTeam: team.red,
-  goldDiffGoal: "",
-  polling: false,
-  pollingTime: startTime,
-  leaderBoard: [],
-  captainGuesses: {
-    [team.red]: "",
-    [team.blue]: "",
-  },
-  visible: {
-    solution: false,
-    table: false,
-  },
-};
+function initState() {
+  clearInterval(timerId);
+  state = {
+    leadingTeam: team.red,
+    goldDiffGoal: "",
+    polling: false,
+    pollingTime: startTime,
+    leaderBoard: [],
+    captainGuesses: {
+      [team.red]: "",
+      [team.blue]: "",
+    },
+    visible: {
+      solution: false,
+      table: false,
+    },
+  };
+}
+
+initState();
 
 function updateState() {
   io.sockets.emit("updateState", state);
@@ -85,7 +92,6 @@ io.on("connection", (socket) => {
     console.log("❌ Verbindung getrennt:", socket.id);
   });
 
-  let timerId;
   socket.on("startPolling", (goldDiffGoal) => {
     if (state.polling) return;
     clearInterval(timerId);
@@ -124,6 +130,12 @@ io.on("connection", (socket) => {
       state.visible[graphic] = isVisible;
       updateState();
     });
+  });
+
+  socket.on("reset", () => {
+    console.log("reset");
+    initState();
+    updateState();
   });
 });
 const client = new tmi.Client({

@@ -89,7 +89,7 @@ function App() {
                 text={"community vote"}
                 id={"table"}
               ></ToggleButton>
-              <ResetButton></ResetButton>
+              <ResetButton socket={socket}></ResetButton>
             </div>
           </div>
           {/* {state.polling && ( */}
