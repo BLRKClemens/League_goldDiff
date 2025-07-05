@@ -6,6 +6,7 @@ import { dirname, join } from "path";
 import tmi from "tmi.js";
 import { faker } from "@faker-js/faker";
 import fs from "fs";
+import { team } from "./src/shared/types.js";
 
 // Hilfsfunktionen um __dirname in ESM zu simulieren
 const __filename = fileURLToPath(import.meta.url);
@@ -22,19 +23,23 @@ const io = new Server(server, {
 // Statischer Ordner für HTML-Dateien
 app.use(express.static(join(__dirname, "dist")));
 const startTime = 60;
-const team = {
-  rot: "rot",
-  blau: "blau",
-};
 
 let alreadyVoted = [];
 
 let state = {
-  leadingTeam: "rot",
-  goldDiffGoal: 0,
+  leadingTeam: team.red,
+  goldDiffGoal: "",
   polling: false,
   pollingTime: startTime,
   leaderBoard: [],
+  captainGuesses: {
+    [team.red]: "",
+    [team.blue]: "",
+  },
+  visible: {
+    solution: false,
+    table: false,
+  },
 };
 
 function updateState() {
@@ -108,6 +113,18 @@ io.on("connection", (socket) => {
     state.leadingTeam = leadingTeam;
     updateState();
   });
+
+  socket.on("updateGuessTeamCaptain", (team, guess) => {
+    state.captainGuesses[team] = parseInt(guess);
+    updateState();
+  });
+
+  Object.entries(state.visible).forEach(([graphic, _]) => {
+    socket.on(`toggle${graphic}`, (isVisible) => {
+      state.visible[graphic] = isVisible;
+      updateState();
+    });
+  });
 });
 const client = new tmi.Client({
   channels: ["clemens_blrk_test", "tolkin", "karni", "nnoprime", "noway4u_sir"],
@@ -118,7 +135,7 @@ const commandFormat = /^!dkb (\w+) (\d+)$/i;
 
 function sendRandomTestCommands() {
   setInterval(() => {
-    const randomTeam = Math.random() > 0.5 ? "Rot" : "Blau";
+    const randomTeam = Math.random() > 0.5 ? team.red : team.blue;
     const randomGoldDiff = Math.floor(Math.random() * 10000);
 
     onTwitchMessage(

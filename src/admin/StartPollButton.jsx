@@ -8,10 +8,7 @@ const StartPollButton = ({ socket, polling, goldDiffGoal }) => {
   }
 
   return (
-    <button
-      className="bg-transparent hover:bg-amber-500 text-amber-300-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-      onClick={onStart}
-    >
+    <button className="startButton" onClick={onStart}>
       Start
     </button>
   );

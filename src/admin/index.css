@@ -22,6 +22,24 @@
   @apply border-solid border-4 border-red-800;
 }
 
+.input {
+  @apply bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500;
+}
+
+.startButton {
+  @apply bg-transparent hover:bg-amber-500 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .leaderboard {
   border-collapse: collapse;
   width: 80%;

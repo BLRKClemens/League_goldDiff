@@ -16,11 +16,10 @@ function App() {
 
   return (
     <div>
-      {state?.polling ? (
-        <h1>Polling...</h1>
-      ) : (
-        <LeaderBoard leaderBoard={state?.leaderBoard}></LeaderBoard>
-      )}
+      <LeaderBoard
+        leaderBoard={state?.leaderBoard}
+        isVisible={state?.visible?.table}
+      ></LeaderBoard>
     </div>
   );
 }
