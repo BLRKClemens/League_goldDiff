@@ -5,7 +5,7 @@ const GoldDiffInput = ({ state, setState }) => {
     <input
       className="input"
       type="number"
-      placeholder="gold difference"
+      placeholder="gold difference goal"
       onChange={(e) => {
         const value = parseInt(e.target.value);
         const goldDiffGoal = Number.isNaN(value) ? "" : value;

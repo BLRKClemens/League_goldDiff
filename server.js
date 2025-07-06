@@ -177,8 +177,8 @@ function onTwitchMessage(channel, name, message) {
   state.leaderBoard.push({
     channel,
     name,
-    goldDiff,
-    diffToGoal,
+    guess: goldDiff,
+    difference: diffToGoal,
   });
 
   state.leaderBoard.sort((a, b) => a.diffToGoal - b.diffToGoal);

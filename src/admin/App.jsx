@@ -9,6 +9,7 @@ import CaptainGuess from "./CaptainGuess";
 import ToggleButton from "./toggleButton";
 import { team } from "../shared/types";
 import ResetButton from "./ResetButton";
+import blrkLogo from "../img/blrk_alpha.png";
 function App() {
   const [state, setState] = useState({});
   useSetupSocket(socket);
@@ -27,7 +28,7 @@ function App() {
           <div className="flex justify-center items-center flex-col gap-1.5 boder-solid border-3 w-fit p-3 rounded-2xl relative z-1 bg-white">
             <div className="flex gap-1.5 justify-center items-center">
               <img
-                src="../img/blrk_alpha.png"
+                src={blrkLogo}
                 className="w-25 h-auto absolute bottom-0 left-0"
                 alt=""
               />
