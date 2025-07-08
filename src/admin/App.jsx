@@ -6,7 +6,7 @@ import TeamButton from "./TeamButton";
 import GoldDiffInput from "./GoldDiffInput";
 import StartPollButton from "./StartPollButton";
 import CaptainGuess from "./CaptainGuess";
-import ToggleButton from "./toggleButton";
+import ToggleButton from "./ToggleButton";
 import { team } from "../shared/types";
 import ResetButton from "./ResetButton";
 import blrkLogo from "../img/blrk_alpha.png";
