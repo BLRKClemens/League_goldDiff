@@ -181,7 +181,7 @@ function onTwitchMessage(channel, name, message) {
     difference: diffToGoal,
   });
 
-  state.leaderBoard.sort((a, b) => a.diffToGoal - b.diffToGoal);
+  state.leaderBoard.sort((a, b) => a.difference - b.difference);
   state.leaderBoard = state.leaderBoard.slice(0, 3);
 
   alreadyVoted.push(name);
