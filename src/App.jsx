@@ -20,6 +20,7 @@ function App() {
         leaderBoard={state?.leaderBoard}
         isVisible={state?.visible?.table}
       ></LeaderBoard>
+      <img src="./img/DKBGD3CamsNoTable.png" alt="" />
     </div>
   );
 }

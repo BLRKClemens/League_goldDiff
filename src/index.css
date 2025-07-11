@@ -1,35 +1,66 @@
 @import "tailwindcss";
+@import url("https://use.typekit.net/sgp2hsh.css");
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.leaderboardContainer {
+  position: absolute;
+  top: 672px;
+  left: 189px;
+  width: 1535px;
+  height: 373px;
+}
 
 .leaderboard {
+  width: 100%;
+  font-size: 32px;
+  color: #148dea;
   border-collapse: collapse;
-  width: 80%;
-  margin: 30px auto;
-  font-family: sans-serif;
-  border: 2px solid #333;
+  font-family: kanit, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+thead th:first-child {
+  border-top-left-radius: 0px;
+}
+
+thead th:last-child {
+  border-top-right-radius: 0px;
 }
 
 .leaderboard th,
 .leaderboard td {
-  border: 1px solid #999;
+  border: 2px solid #148dea;
+
   padding: 12px 18px;
-  text-align: left;
+  text-align: center;
+  /* border-radius: 20px; */
 }
 
 .leaderboard thead {
-  background-color: #f4f4f4;
+  background-color: #fff;
+  /* border-radius: 50px; */
 }
 
 .leaderboard th {
   font-size: 1.1em;
   font-weight: 700;
   text-transform: uppercase;
-  border-bottom: 2px solid #333;
+  /* border-bottom: 2px solid #148dea; */
 }
 
 .leaderboard tr:nth-child(even) {
-  background-color: #fafafa;
+  /* background-color: #fff; */
 }
-
-.leaderboard tr:hover {
-  background-color: #e0f0ff;
+.table-wrapper {
+  border-radius: 12px;
+  overflow: hidden; /* this is the trick */
+  border: 2px solid #148dea;
+  height: 100%;
+  width: 100%;
 }
