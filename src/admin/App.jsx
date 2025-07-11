@@ -45,13 +45,13 @@ function App() {
                   <TeamButton
                     socket={socket}
                     teamName={"red"}
-                    teamNameString={team.red}
+                    teamNameString={"r"}
                     leadingTeam={state.leadingTeam}
                   ></TeamButton>
                   <TeamButton
                     socket={socket}
                     teamName={"blue"}
-                    teamNameString={team.blue}
+                    teamNameString={"b"}
                     leadingTeam={state.leadingTeam}
                   ></TeamButton>
                 </div>

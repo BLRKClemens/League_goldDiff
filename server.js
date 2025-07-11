@@ -31,7 +31,7 @@ let timerId;
 function initState() {
   clearInterval(timerId);
   state = {
-    leadingTeam: team.red,
+    leadingTeam: "r",
     goldDiffGoal: "",
     polling: false,
     pollingTime: startTime,
@@ -147,7 +147,7 @@ const commandFormat = /^!dkb (\w+) (\d+)$/i;
 
 function sendRandomTestCommands() {
   setInterval(() => {
-    const randomTeam = Math.random() > 0.5 ? team.red : team.blue;
+    const randomTeam = Math.random() > 0.5 ? "r" : "b";
     const randomGoldDiff = Math.floor(Math.random() * 10000);
 
     onTwitchMessage(
