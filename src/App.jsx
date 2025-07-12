@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { socket } from "./shared/socket";
 import { useSetupSocket } from "./shared/hooks/useSetupSocket";
 import LeaderBoard from "./shared/LeaderBoard";
+import backgroundImage from "./img/DKBGD3CamsNoTable.png";
 function App() {
   const [state, setState] = useState({});
 
@@ -20,7 +21,7 @@ function App() {
         leaderBoard={state?.leaderBoard}
         isVisible={state?.visible?.table}
       ></LeaderBoard>
-      <img src="./img/DKBGD3CamsNoTable.png" alt="" />
+      <img src={backgroundImage} alt="" />
     </div>
   );
 }
