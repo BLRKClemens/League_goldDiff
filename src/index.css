@@ -61,6 +61,6 @@ thead th:last-child {
   border-radius: 12px;
   overflow: hidden; /* this is the trick */
   border: 2px solid #148dea;
-  height: 100%;
+  height: fit-content;
   width: 100%;
 }
