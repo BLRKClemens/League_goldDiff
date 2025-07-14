@@ -42,7 +42,7 @@ function initState() {
     },
     visible: {
       solution: false,
-      table: false,
+      table: true,
     },
   };
 }

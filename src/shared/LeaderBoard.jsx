@@ -8,7 +8,7 @@ const LeaderBoard = ({ leaderBoard, isVisible = true }) => {
       }`}
     >
       {!leaderBoard || leaderBoard.length === 0 ? (
-        <p className="font-extrabold">{"--- NO LEADERBOARD ---"} </p>
+        <p className="font-extrabold opacity-0">{"--- NO LEADERBOARD ---"} </p>
       ) : (
         <div className="table-wrapper">
           <table className="leaderboard">
