@@ -21,7 +21,7 @@ function App() {
         leaderBoard={state?.leaderBoard}
         isVisible={state?.visible?.table}
       ></LeaderBoard>
-      <img src={backgroundImage} alt="" />
+      <img src={backgroundImage} className="opacity-0" alt="" />
     </div>
   );
 }
