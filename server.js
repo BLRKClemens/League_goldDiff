@@ -22,7 +22,7 @@ const io = new Server(server, {
 
 // Statischer Ordner für HTML-Dateien
 app.use(express.static(join(__dirname, "dist")));
-const startTime = 60;
+const startTime = 40;
 
 let alreadyVoted = [];
 let state;
