@@ -161,9 +161,12 @@ function sendRandomTestCommands() {
 //sendTestCommands();
 //sendRandomTestCommands();
 
+const bannedUsers = ["mlodybug69"];
+
 function onTwitchMessage(channel, name, message) {
   if (!state?.polling) return;
   if (alreadyVoted.includes(name)) return;
+  if (bannedUsers.includes(name)) return;
   const match = message.match(commandFormat);
 
   if (!match) return;
@@ -182,7 +185,7 @@ function onTwitchMessage(channel, name, message) {
   });
 
   state.leaderBoard.sort((a, b) => a.difference - b.difference);
-  state.leaderBoard = state.leaderBoard.slice(0, 3);
+  state.leaderBoard = state.leaderBoard.slice(0, 5);
 
   alreadyVoted.push(name);
   io.sockets.emit("updateState", state);
