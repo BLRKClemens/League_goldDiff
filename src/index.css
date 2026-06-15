@@ -1,66 +1,47 @@
 @import url("https://use.typekit.net/sgp2hsh.css");
 @import "tailwindcss";
 
+@theme {
+  --color-minion-blue: rgb(54, 176, 201);
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-family: poppins;
 }
 
-.leaderboardContainer {
+.l3-winner {
   position: absolute;
-  top: 672px;
-  left: 189px;
-  width: 1535px;
-  height: 373px;
+  top: 178px;
+  left: 53px;
+  width: 497px;
+  height: 340px;
+  padding: 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-.leaderboard {
+.scoreEntry {
+  font-size: 30px;
   width: 100%;
-  font-size: 24px;
-  color: #148dea;
-  border-collapse: collapse;
-  font-family: kanit, sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-thead th:first-child {
-  border-top-left-radius: 0px;
+  max-height: 100px;
+  display: grid;
+  grid-template-columns: 40px 200px 1fr;
+  white-space: nowrap;
 }
 
-thead th:last-child {
-  border-top-right-radius: 0px;
-}
-
-.leaderboard th,
-.leaderboard td {
-  border: 2px solid #148dea;
-
-  padding: 12px 18px;
-  text-align: center;
-  /* border-radius: 20px; */
-}
-
-.leaderboard thead {
-  background-color: #fff;
-  /* border-radius: 50px; */
-}
-
-.leaderboard th {
-  font-size: 1.1em;
-  font-weight: 700;
-  text-transform: uppercase;
-  /* border-bottom: 2px solid #148dea; */
-}
-
-.leaderboard tr:nth-child(even) {
-  /* background-color: #fff; */
-}
-.table-wrapper {
-  border-radius: 12px;
-  overflow: hidden; /* this is the trick */
-  border: 2px solid #148dea;
-  height: fit-content;
+.nameEntry {
+  display: flex;
+  justify-content: left;
+  align-items: center;
   width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-minion-blue);
 }

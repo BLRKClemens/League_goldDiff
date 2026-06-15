@@ -16,13 +16,13 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://localhost:5174"],
   },
 });
 
 // Statischer Ordner für HTML-Dateien
 app.use(express.static(join(__dirname, "dist")));
-const startTime = 40;
+const startTime = 1;
 
 let alreadyVoted = [];
 let state;
@@ -31,8 +31,8 @@ let timerId;
 function initState() {
   clearInterval(timerId);
   state = {
-    leadingTeam: "r",
-    goldDiffGoal: "",
+    leadingTeam: "w",
+    pointGoal: "",
     polling: false,
     pollingTime: startTime,
     leaderBoard: [],
@@ -40,10 +40,13 @@ function initState() {
       [team.red]: "",
       [team.blue]: "",
     },
+    score: [0, 0],
+    scoreMaximum: 3000,
     visible: {
       solution: false,
-      table: true,
+      table: false,
     },
+    guesses: {},
   };
 }
 
@@ -60,13 +63,13 @@ async function writeToFile(leaderBoard) {
   const pad = (string) => (String(string).length == 1 ? `0${string}` : string);
   const now = new Date();
   const folderName = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(
-    now.getDate()
+    now.getDate(),
   )}`;
   console.log("folderName", folderName);
   const folderPath = join(logsFolderPath, folderName);
 
   const fileName = `${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(
-    now.getSeconds()
+    now.getSeconds(),
   )}.json`;
   console.log("fileName", fileName);
   const filePath = join(folderPath, fileName);
@@ -92,10 +95,10 @@ io.on("connection", (socket) => {
     console.log("❌ Verbindung getrennt:", socket.id);
   });
 
-  socket.on("startPolling", (goldDiffGoal) => {
+  socket.on("startPolling", (pointGoal) => {
     if (state.polling) return;
     clearInterval(timerId);
-    state.goldDiffGoal = goldDiffGoal;
+    state.pointGoal = pointGoal;
     state.polling = true;
     state.pollingTime = startTime;
     state.leaderBoard = [];
@@ -106,11 +109,34 @@ io.on("connection", (socket) => {
       if (state.pollingTime <= 0) {
         clearInterval(timerId);
         state.polling = false;
-        writeToFile(state.leaderBoard);
+        writeToFile(state.guesses);
       }
       updateState();
     }, 1000);
 
+    updateState();
+  });
+
+  socket.on("sortGuesses", (pointGoal) => {
+    if (state.polling) return;
+    state.leaderBoard = [];
+    state.pointGoal = pointGoal;
+
+    for (const [name, guess] of Object.entries(state.guesses)) {
+      if (guess.team != state.leadingTeam) {
+        continue;
+      }
+      const diffToGoal = Math.abs(state.pointGoal - guess.pointDiff);
+      state.leaderBoard.push({
+        name,
+        ...guess,
+        difference: diffToGoal,
+      });
+    }
+    state.leaderBoard.sort(
+      (a, b) => a.difference - b.difference || a.timeStamp - b.timeStamp,
+    );
+    state.leaderBoard = state.leaderBoard.slice(0, 5);
     updateState();
   });
 
@@ -137,33 +163,44 @@ io.on("connection", (socket) => {
     initState();
     updateState();
   });
+
+  socket.on("updateScore", (score, index) => {
+    state.score[index] += score;
+
+    updateState();
+  });
+
+  socket.on("updateScoreMaximum", (score) => {
+    state.scoreMaximum = score;
+    updateState();
+  });
 });
 const client = new tmi.Client({
   channels: ["clemens_blrk_test", "tolkin", "karni", "nnoprime", "noway4u_sir"],
 });
 
 client.connect();
-const commandFormat = /^!dkb (\w+) (\d+)$/i;
+const commandFormat = /^!(w|n) (\d+)$/i;
 
 function sendRandomTestCommands() {
   setInterval(() => {
-    const randomTeam = Math.random() > 0.5 ? "r" : "b";
-    const randomGoldDiff = Math.floor(Math.random() * 10000);
+    const randomTeam = Math.random() > 0.5 ? "w" : "n";
+    const randomPointDiff = Math.floor(Math.random() * 300);
 
     onTwitchMessage(
       "",
       faker.person.lastName(),
-      `!dkb ${randomTeam} ${randomGoldDiff}`
+      `!${randomTeam} ${randomPointDiff}`,
     );
   }, 1);
 }
 
-//sendTestCommands();
-//sendRandomTestCommands();
+sendRandomTestCommands();
 
-const bannedUsers = ["mlodybug69"];
+const bannedUsers = [];
 
 function onTwitchMessage(channel, name, message) {
+  const timeStamp = Date.now();
   if (!state?.polling) return;
   if (alreadyVoted.includes(name)) return;
   if (bannedUsers.includes(name)) return;
@@ -171,22 +208,28 @@ function onTwitchMessage(channel, name, message) {
 
   if (!match) return;
   const leadingTeam = match[1].toLowerCase();
-  const goldDiff = parseInt(match[2].toLowerCase());
+  const pointDiff = parseInt(match[2].toLowerCase());
 
-  if (leadingTeam != state.leadingTeam) return;
+  // if (leadingTeam != state.leadingTeam) return;
 
-  const diffToGoal = Math.abs(state.goldDiffGoal - goldDiff);
+  const diffToGoal = Math.abs(state.pointGoal - pointDiff);
 
-  state.leaderBoard.push({
-    channel,
-    name,
-    guess: goldDiff,
-    difference: diffToGoal,
-  });
+  // state.leaderBoard.push({
+  //   channel,
+  //   name,
+  guess: (pointDiff,
+    //   difference: diffToGoal,
+    // });
 
-  state.leaderBoard.sort((a, b) => a.difference - b.difference);
-  state.leaderBoard = state.leaderBoard.slice(0, 5);
+    // state.leaderBoard.sort((a, b) => a.difference - b.difference);
+    // state.leaderBoard = state.leaderBoard.slice(0, 5);
 
+    (state.guesses[name] = {
+      channel,
+      team: leadingTeam,
+      pointDiff,
+      timeStamp,
+    }));
   alreadyVoted.push(name);
   io.sockets.emit("updateState", state);
 }

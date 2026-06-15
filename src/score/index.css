@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --color-minion-blue: rgb(54, 176, 201);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: poppins;
+}
+
+.score {
+  position: absolute;
+  top: 896px;
+  left: 177px;
+  width: 296px;
+  font-size: 54px;
+  display: flex;
+  justify-content: center;
+
+  &.right {
+    left: 1457px;
+  }
+}
+
+.gesamtpunktzahl {
+  position: absolute;
+  top: 917px;
+  left: 746px;
+  /* width: 370px; */
+  font-size: 61px;
+  white-space: nowrap;
+  text-shadow: 0px 7px 0px black;
+  font-weight: 900;
+  color: var(--color-minion-blue);
+  /* text-align: center; */
+  display: grid;
+  grid-template-columns: 184px 215px;
+  gap: 12px;
+}

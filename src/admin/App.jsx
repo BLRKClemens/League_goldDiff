@@ -3,13 +3,16 @@ import { socket } from "../shared/socket";
 import { useEffect, useState } from "react";
 import LeaderBoard from "../shared/LeaderBoard";
 import TeamButton from "./TeamButton";
-import GoldDiffInput from "./GoldDiffInput";
+import GoldDiffInput from "./PointDiffInput";
 import StartPollButton from "./StartPollButton";
 import CaptainGuess from "./CaptainGuess";
 import ToggleButton from "./ToggleButton";
 import { team } from "../shared/types";
 import ResetButton from "./ResetButton";
 import blrkLogo from "../img/blrk_alpha.png";
+import SortGuessesButton from "./SortGuessesButton";
+import PointDiffInput from "./PointDiffInput";
+import ScoreControlWrapper from "./ScoreControlWrapper";
 function App() {
   const [state, setState] = useState({});
   useSetupSocket(socket);
@@ -44,14 +47,14 @@ function App() {
                 <div>
                   <TeamButton
                     socket={socket}
-                    teamName={"red"}
-                    teamNameString={"r"}
+                    teamName={"wichtiger"}
+                    teamNameString={"w"}
                     leadingTeam={state.leadingTeam}
                   ></TeamButton>
                   <TeamButton
                     socket={socket}
-                    teamName={"blue"}
-                    teamNameString={"b"}
+                    teamName={"nooreax"}
+                    teamNameString={"n"}
                     leadingTeam={state.leadingTeam}
                   ></TeamButton>
                 </div>
@@ -67,12 +70,20 @@ function App() {
             </div>
 
             <div>
-              <GoldDiffInput state={state} setState={setState}></GoldDiffInput>
+              <PointDiffInput
+                state={state}
+                setState={setState}
+              ></PointDiffInput>
               <StartPollButton
                 socket={socket}
                 polling={state.polling}
-                goldDiffGoal={state.goldDiffGoal}
+                pointGoal={state.pointGoal}
               ></StartPollButton>
+              <SortGuessesButton
+                socket={socket}
+                polling={state.polling}
+                pointGoal={state.pointGoal}
+              ></SortGuessesButton>
             </div>
 
             <div className="flex gap-1.5">
@@ -104,6 +115,8 @@ function App() {
           </div>
           {/* )} */}
         </div>
+
+        <ScoreControlWrapper socket={socket} state={state} />
 
         <LeaderBoard leaderBoard={state?.leaderBoard} />
       </div>
