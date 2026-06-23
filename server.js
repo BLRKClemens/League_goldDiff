@@ -47,6 +47,7 @@ function initState() {
       table: false,
     },
     guesses: {},
+    isPointsVisible: false,
   };
 }
 
@@ -172,6 +173,11 @@ io.on("connection", (socket) => {
 
   socket.on("updateScoreMaximum", (score) => {
     state.scoreMaximum = score;
+    updateState();
+  });
+
+  socket.on("toggleIsPointsVisible", (isVisible) => {
+    state.isPointsVisible = !state.isPointsVisible;
     updateState();
   });
 });

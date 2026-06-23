@@ -2,18 +2,29 @@ import React, { useContext } from "react";
 
 const ScoreControlWrapper = ({ socket, state }) => {
   return (
-    <div className="flex gap-4">
-      <div className="bg-gray-50 p-2 rounded-2xl border-3 w-full text-center">
-        <h1 className="text-lg font-bold">
-          Wichtiger ({state?.score?.[0] || 0})
-        </h1>
-        <ScoreControl socket={socket} scoreIndex={0} />
-      </div>
-      <div className="bg-gray-50 p-2 rounded-2xl border-3 w-full text-center">
-        <h1 className="text-lg font-bold">
-          Nooreax ({state?.score?.[1] || 0})
-        </h1>
-        <ScoreControl socket={socket} scoreIndex={1} />
+    <div className="flex items-center flex-col gap-2">
+      <button
+        className="bg-orange-400 rounded-2xl text-2xl w-fit p-2 text-white hover:bg-orange-600 cursor-pointer"
+        onClick={() => {
+          socket.emit("toggleIsPointsVisible");
+        }}
+      >
+        {state.isPointsVisible ? "Hide Points" : "Show Points"}
+      </button>
+
+      <div className="flex gap-4 w-full">
+        <div className="bg-gray-50 p-2 rounded-2xl border-3 w-full text-center">
+          <h1 className="text-lg font-bold">
+            Wichtiger ({state?.score?.[0] || 0})
+          </h1>
+          <ScoreControl socket={socket} scoreIndex={0} />
+        </div>
+        <div className="bg-gray-50 p-2 rounded-2xl border-3 w-full text-center">
+          <h1 className="text-lg font-bold">
+            Nooreax ({state?.score?.[1] || 0})
+          </h1>
+          <ScoreControl socket={socket} scoreIndex={1} />
+        </div>
       </div>
     </div>
   );
