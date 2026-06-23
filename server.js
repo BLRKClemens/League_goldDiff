@@ -22,7 +22,7 @@ const io = new Server(server, {
 
 // Statischer Ordner für HTML-Dateien
 app.use(express.static(join(__dirname, "dist")));
-const startTime = 1;
+const startTime = 30;
 
 let alreadyVoted = [];
 let state;
@@ -31,7 +31,7 @@ let timerId;
 function initState() {
   clearInterval(timerId);
   state = {
-    leadingTeam: "w",
+    leadingTeam: "wichtiger",
     pointGoal: "",
     polling: false,
     pollingTime: startTime,
@@ -180,22 +180,22 @@ const client = new tmi.Client({
 });
 
 client.connect();
-const commandFormat = /^!(w|n) (\d+)$/i;
+const commandFormat = /^!(wichtiger|nooreax) (\d+)$/i;
 
 function sendRandomTestCommands() {
   setInterval(() => {
-    const randomTeam = Math.random() > 0.5 ? "w" : "n";
+    const randomTeam = Math.random() > 0.5 ? "wichtiger" : "nooreax";
     const randomPointDiff = Math.floor(Math.random() * 300);
 
     onTwitchMessage(
       "",
-      faker.person.lastName(),
+      faker.internet.username(),
       `!${randomTeam} ${randomPointDiff}`,
     );
   }, 1);
 }
 
-sendRandomTestCommands();
+// sendRandomTestCommands();
 
 const bannedUsers = [];
 
