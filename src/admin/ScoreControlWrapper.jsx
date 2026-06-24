@@ -119,19 +119,7 @@ const Spiel2 = ({ socket, scoreIndex }) => {
       <h1 className="text-lg font-bold p-2">
         Spiel 2 <UpdateMaximumButton socket={socket} score={2500} />
       </h1>
-      <div className="grid grid-cols-4 gap-2">
-        <ScoreButton
-          score={50}
-          isPositive={true}
-          socket={socket}
-          scoreIndex={scoreIndex}
-        />
-        <ScoreButton
-          score={75}
-          isPositive={true}
-          socket={socket}
-          scoreIndex={scoreIndex}
-        />
+      <div className="grid grid-cols-3 gap-2">
         <ScoreButton
           score={100}
           isPositive={true}
@@ -145,19 +133,13 @@ const Spiel2 = ({ socket, scoreIndex }) => {
           socket={socket}
           scoreIndex={scoreIndex}
         />
+        <ScoreButton
+          score={300}
+          isPositive={true}
+          socket={socket}
+          scoreIndex={scoreIndex}
+        />
 
-        <ScoreButton
-          score={50}
-          isPositive={false}
-          socket={socket}
-          scoreIndex={scoreIndex}
-        />
-        <ScoreButton
-          score={75}
-          isPositive={false}
-          socket={socket}
-          scoreIndex={scoreIndex}
-        />
         <ScoreButton
           score={100}
           isPositive={false}
@@ -167,6 +149,12 @@ const Spiel2 = ({ socket, scoreIndex }) => {
 
         <ScoreButton
           score={200}
+          isPositive={false}
+          socket={socket}
+          scoreIndex={scoreIndex}
+        />
+        <ScoreButton
+          score={300}
           isPositive={false}
           socket={socket}
           scoreIndex={scoreIndex}
@@ -180,9 +168,9 @@ const Spiel3 = ({ socket, scoreIndex }) => {
   return (
     <div>
       <h1 className="text-lg font-bold p-2">
-        Spiel 3 <UpdateMaximumButton socket={socket} score={3600} />
+        Spiel 3 <UpdateMaximumButton socket={socket} score={1800} />
       </h1>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <ScoreButton
           score={100}
           isPositive={true}
@@ -190,13 +178,7 @@ const Spiel3 = ({ socket, scoreIndex }) => {
           scoreIndex={scoreIndex}
         />
         <ScoreButton
-          score={200}
-          isPositive={true}
-          socket={socket}
-          scoreIndex={scoreIndex}
-        />
-        <ScoreButton
-          score={300}
+          score={500}
           isPositive={true}
           socket={socket}
           scoreIndex={scoreIndex}
@@ -208,13 +190,7 @@ const Spiel3 = ({ socket, scoreIndex }) => {
           scoreIndex={scoreIndex}
         />
         <ScoreButton
-          score={200}
-          isPositive={false}
-          socket={socket}
-          scoreIndex={scoreIndex}
-        />
-        <ScoreButton
-          score={300}
+          score={500}
           isPositive={false}
           socket={socket}
           scoreIndex={scoreIndex}
@@ -228,18 +204,18 @@ const Spiel4 = ({ socket, scoreIndex }) => {
   return (
     <div>
       <h1 className="text-lg font-bold p-2">
-        Spiel 4 <UpdateMaximumButton socket={socket} score={10000} />
+        Spiel 4 <UpdateMaximumButton socket={socket} score={6000} />
       </h1>
       <div className="grid grid-cols-1 gap-2">
         <ScoreButton
-          score={1000}
+          score={500}
           isPositive={true}
           socket={socket}
           scoreIndex={scoreIndex}
         />
 
         <ScoreButton
-          score={1000}
+          score={500}
           isPositive={false}
           socket={socket}
           scoreIndex={scoreIndex}
