@@ -14,13 +14,13 @@ const ScoreControlWrapper = ({ socket, state }) => {
 
       <div className="flex gap-4 w-full">
         <div className="bg-gray-50 p-2 rounded-2xl border-3 w-full text-center">
-          <h1 className="text-lg font-bold">
+          <h1 className="text-lg font-bold text-yellow-500">
             Wichtiger ({state?.score?.[0] || 0})
           </h1>
           <ScoreControl socket={socket} scoreIndex={0} />
         </div>
         <div className="bg-gray-50 p-2 rounded-2xl border-3 w-full text-center">
-          <h1 className="text-lg font-bold">
+          <h1 className="text-lg font-bold text-blue-500">
             Nooreax ({state?.score?.[1] || 0})
           </h1>
           <ScoreControl socket={socket} scoreIndex={1} />
@@ -58,7 +58,7 @@ const Spiel1 = ({ socket, scoreIndex }) => {
       <h1 className="text-lg font-bold p-2">
         Angeln <UpdateMaximumButton socket={socket} score={2000} />
       </h1>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-5 gap-2">
         <ScoreButton
           score={25}
           isPositive={true}
@@ -81,6 +81,14 @@ const Spiel1 = ({ socket, scoreIndex }) => {
           score={100}
           isPositive={true}
           socket={socket}
+          scoreIndex={scoreIndex}
+          description="banane | frage"
+        />
+        <ScoreButton
+          score={200}
+          isPositive={true}
+          socket={socket}
+          description="hai getroffen"
           scoreIndex={scoreIndex}
         />
 
@@ -104,6 +112,13 @@ const Spiel1 = ({ socket, scoreIndex }) => {
         />
         <ScoreButton
           score={100}
+          isPositive={false}
+          socket={socket}
+          scoreIndex={scoreIndex}
+          description="hai in box"
+        />
+        <ScoreButton
+          score={200}
           isPositive={false}
           socket={socket}
           scoreIndex={scoreIndex}
@@ -224,7 +239,13 @@ const Spiel4 = ({ socket, scoreIndex }) => {
     </div>
   );
 };
-const ScoreButton = ({ score, isPositive, socket, scoreIndex }) => {
+const ScoreButton = ({
+  score,
+  isPositive,
+  socket,
+  scoreIndex,
+  description = "",
+}) => {
   return (
     <button
       className={`px-2 py-1 rounded ${isPositive ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600 text-white"} cursor-pointer`}
@@ -234,6 +255,7 @@ const ScoreButton = ({ score, isPositive, socket, scoreIndex }) => {
     >
       {isPositive ? "+" : "-"}
       {score}
+      {description && ` (${description})`}
     </button>
   );
 };
