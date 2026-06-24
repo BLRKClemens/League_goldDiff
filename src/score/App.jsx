@@ -80,6 +80,7 @@ const CountUpComponent = ({
     end: endValue,
     separator: ".",
     delay: 1,
+    duration: 5,
     onReset: () => console.log("Resetted!"),
     onUpdate: () => console.log("Updated!"),
     onPauseResume: () => console.log("Paused or resumed!"),
